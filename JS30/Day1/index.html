@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        .key{
+            height: 100px;
+            width : 100px;
+            transition: all 0.07s;
+        }
+
+        .playing{
+            background-color: red;
+
+        }
+        </style>
+
+    <head></head>
+    <body>
+
+
+        <div class = "key" data-key = "65">
+            <h3>a</h3>
+        </div>
+
+        <div class = "key" data-key = "66">
+            <h3>b</h3>
+        </div>
+
+        <div class = "key" data-key = "67">
+            <h3>c</h3>
+        </div>
+
+        <audio data-key = "65" src="sound/a.mp3"></audio>
+        <audio data-key = "66" src="sound/b.mp3"></audio>
+        <audio data-key = "67" src="sound/c.mp3"></audio>
+    </body>
+
+</html>
+
+<script>
+window.addEventListener('keydown',function(e){
+    console.log(e.keyCode);
+    var audio = document.querySelector('audio[data-key =\"'+ e.keyCode+'\"]')
+    var key   = document.querySelector('div.key[data-key =\"'+ e.keyCode+'\"]')
+    console.log(audio);
+    console.log(key);
+    if(!audio) return;
+    audio.currentTime = 0.2; // rewind the start time the start point 
+    audio.play();
+    key.classList.add("playing");
+
+
+});
+
+document.querySelectorAll(".key").forEach(function(element) {
+    element.addEventListener('transitionend',function(e){
+         console.log("!!");
+         element.classList.remove("playing");
+    });
+}, this);
+
+    </script>
